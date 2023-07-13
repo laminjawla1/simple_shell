@@ -30,6 +30,8 @@ int main(void)
 		for (i = 0; _argv[i]; i++)
 			printf("_argv[%lu]: %s\n", i, _argv[i]);
 		/*Clean up the memory*/
+		if (strcmp(_argv[0], "exit") == 0)
+			exit(0);
 		free_argv(_argv);
 	}
 	return (0);
