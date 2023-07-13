@@ -11,5 +11,6 @@
 #include <unistd.h>
 
 /*Function Prototypes*/
+void display_prompt(char *prompt);
 
 #endif
