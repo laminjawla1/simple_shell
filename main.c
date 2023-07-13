@@ -5,10 +5,10 @@
 *
 *Return: 0 on success
 */
-int main(void)
+int main(int __attribute__((unused)) argc, char **argv)
 {
 	char *prompt = "$ ", *sep = " \n", *line = NULL, **_argv = NULL;
-	size_t n = 0, i;
+	size_t n = 0;
 	int val_from_getline;
 
 	while (true)
@@ -26,12 +26,12 @@ int main(void)
 		}
 		/*Tokenize the command*/
 		_argv = tokenize(line, sep);
-		printf("Tokens:\n");
-		for (i = 0; _argv[i]; i++)
-			printf("_argv[%lu]: %s\n", i, _argv[i]);
-		/*Clean up the memory*/
-		if (strcmp(_argv[0], "exit") == 0)
+		/*Check if the user wants to exit*/
+		if (_argv[0] && strcmp(_argv[0], "exit") == 0)
 			exit(0);
+		/*Execute the command*/
+		execute(_argv, argv[0]);
+		/*Clean up the memory*/
 		free_argv(_argv);
 	}
 	return (0);

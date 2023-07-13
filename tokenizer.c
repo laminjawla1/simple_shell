@@ -24,6 +24,19 @@ char **tokenize(char *line, char *sep)
 	free(backup);
 	backup = strdup(line);
 	token = strtok(backup, sep);
+	if (!token)
+	{
+		free(argv);
+		free(backup);
+		argv = malloc(sizeof(char *));
+		if (!argv)
+		{
+			perror("Failed to allocate memory");
+			exit(-1);
+		}
+		argv[0] = NULL;
+		return (argv);
+	}
 	while (token)
 	{
 		argv[i] = malloc(sizeof(char) * (strlen(token) + 1));
