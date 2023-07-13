@@ -16,7 +16,7 @@ int main(void)
 		/*Display an input prompt to the user*/
 		display_prompt(prompt);
 
-		/*Get command from the user*/
+		/*Get a text line from the user*/
 		val_from_getline = getline(&line, &n, stdin);
 		if (val_from_getline == -1)
 		{
