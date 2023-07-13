@@ -7,8 +7,8 @@
 */
 int main(void)
 {
-	char *prompt = "$ ", *line = NULL;
-	size_t n = 0;
+	char *prompt = "$ ", *sep = " \n", *line = NULL, **_argv = NULL;
+	size_t n = 0, i;
 	int val_from_getline;
 
 	while (true)
@@ -24,9 +24,13 @@ int main(void)
 			free(line);
 			exit(0);
 		}
-		printf("%s", line);
-
 		/*Tokenize the command*/
+		_argv = tokenize(line, sep);
+		printf("Tokens:\n");
+		for (i = 0; _argv[i]; i++)
+			printf("_argv[%lu]: %s\n", i, _argv[i]);
+		/*Clean up the memory*/
+		free_argv(_argv);
 	}
 	return (0);
 }
