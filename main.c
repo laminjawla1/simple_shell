@@ -22,7 +22,7 @@ int main(int __attribute__((unused)) argc, char **argv)
 		{
 			putchar('\n');
 			free(line);
-			exit(0);
+			_exit(0);
 		}
 		/*Tokenize the command*/
 		_argv = tokenize(line, sep);
