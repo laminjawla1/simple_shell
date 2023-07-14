@@ -8,9 +8,19 @@
 */
 void execute(char **argv, char *p_name)
 {
+	pid_t pid;
+
 	if (!*argv)
 		return;
-	if ((execve(argv[0], argv, NULL)) == -1)
-		perror(p_name);
+	pid = fork();
+	if (pid == -1)
+		return;
+	else if (pid == 0)
+	{
+		if ((execve(argv[0], argv, NULL)) == -1)
+			perror(p_name);
+	}
+	else
+		wait(NULL);
 }
 

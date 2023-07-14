@@ -28,7 +28,11 @@ int main(int __attribute__((unused)) argc, char **argv)
 		_argv = tokenize(line, sep);
 		/*Check if the user wants to exit*/
 		if (_argv[0] && strcmp(_argv[0], "exit") == 0)
+		{
+			free(line);
+			free_argv(_argv);
 			exit(0);
+		}
 		/*Execute the command*/
 		execute(_argv, argv[0]);
 		/*Clean up the memory*/
