@@ -16,36 +16,12 @@ char **tokenize(char *line, char *sep)
 	backup = strdup(line);
 	number_of_tokens = get_number_of_tokens(backup, sep);
 	argv = malloc(sizeof(char *) * (number_of_tokens + 1));
-	if (!argv)
-	{
-		perror("hsh: Memory allocation failed");
-		exit(-1);
-	}
 	free(backup);
 	backup = strdup(line);
 	token = strtok(backup, sep);
-	if (!token)
-	{
-		free(argv);
-		free(backup);
-		argv = malloc(sizeof(char *));
-		if (!argv)
-		{
-			perror("Failed to allocate memory");
-			exit(-1);
-		}
-		argv[0] = NULL;
-		return (argv);
-	}
 	while (token)
 	{
 		argv[i] = malloc(sizeof(char) * (strlen(token) + 1));
-		if (!argv[i])
-		{
-			free(argv);
-			perror("hsh: Memory allocation failed");
-			exit(-1);
-		}
 		strcpy(argv[i], token);
 		token = strtok(NULL, sep);
 		i++;
