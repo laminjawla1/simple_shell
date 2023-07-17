@@ -15,24 +15,28 @@ int main(int __attribute__((unused)) argc, char **argv)
 	int val_from_getline = 0;
 
 	signal(SIGINT, signal_handler);
-	while (true)
+	if (argc == 1)
 	{
-		if (isatty(STDIN_FILENO))
-			display_prompt(prompt);
-		val_from_getline = _getline(&user_input, &n, stdin);
-		if (val_from_getline != -1)
+		while (true)
 		{
-			_argv = tokenize(user_input, sep);
-			execute(_argv, *argv, user_input, number_of_commands_executed);
+			if (isatty(STDIN_FILENO))
+				display_prompt(prompt);
+			val_from_getline = _getline(&user_input, &n, stdin);
+			if (val_from_getline != -1)
+			{
+				_argv = tokenize(user_input, sep);
+				execute(_argv, *argv, user_input, number_of_commands_executed);
+			}
+			else
+			{
+				free(user_input);
+				if (isatty(STDIN_FILENO))
+					putchar('\n');
+				_exit(0);
+			}
+			number_of_commands_executed++;
+			free_argv(_argv);
 		}
-		else
-		{
-			free(user_input);
-			putchar('\n');
-			_exit(0);
-		}
-		number_of_commands_executed++;
-		free_argv(_argv);
 	}
 	return (0);
 }
