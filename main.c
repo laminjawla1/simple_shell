@@ -10,8 +10,7 @@
 */
 int main(int __attribute__((unused)) argc, char **argv)
 {
-	char *prompt = "$ ", *sep = " \n", *user_input = NULL, error_msg[1024];
-	char *cmd = NULL, **_argv;
+	char *prompt = "$ ", *sep = " \n", *user_input = NULL, **_argv;
 	size_t n = 0, number_of_commands_executed = 1;
 	int val_from_getline = 0;
 
@@ -30,18 +29,7 @@ int main(int __attribute__((unused)) argc, char **argv)
 				free_argv(_argv);
 				_exit(0);
 			}
-			cmd = _which(_argv[0]);
-			if (!cmd)
-			{
-				snprintf(error_msg, 1024, "%s: %ld: %s: not found\n",
-					*argv, number_of_commands_executed, *_argv);
-				print_error_msg(STDERR_FILENO, error_msg);
-			}
-			else
-			{
-				execute(_argv, cmd);
-				free(cmd);
-			}
+			execute(_argv, *argv, number_of_commands_executed);
 		}
 		else
 		{

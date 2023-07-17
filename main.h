@@ -18,7 +18,7 @@ void display_prompt(char *prompt);
 char **tokenize(char *line, char *sep);
 size_t get_number_of_tokens(char *line, char *sep);
 void free_argv(char **argv);
-void execute(char **argv, char *cmd);
+void execute(char **argv, char *p_name, size_t n_cmds_executed);
 char *_which(char *command);
 void signal_handler(int sig);
 void print_error_msg(int fd, char *error_msg);
