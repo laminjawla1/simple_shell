@@ -19,17 +19,11 @@ int main(int __attribute__((unused)) argc, char **argv)
 	{
 		if (isatty(STDIN_FILENO))
 			display_prompt(prompt);
-		val_from_getline = getline(&user_input, &n, stdin);
+		val_from_getline = _getline(&user_input, &n, stdin);
 		if (val_from_getline != -1)
 		{
 			_argv = tokenize(user_input, sep);
-			if ((*_argv != NULL) && (strcmp(*_argv, "exit") == 0))
-			{
-				free(user_input);
-				free_argv(_argv);
-				_exit(0);
-			}
-			execute(_argv, *argv, number_of_commands_executed);
+			execute(_argv, *argv, user_input, number_of_commands_executed);
 		}
 		else
 		{

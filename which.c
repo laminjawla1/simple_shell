@@ -9,10 +9,9 @@
 */
 char *_which(char *command)
 {
-	char *path, *dir, *backup_path;
+	char *path = NULL, *dir = NULL, *backup_path = NULL, *filepath = NULL;
 	size_t cmd_len, len;
 	struct stat buf;
-	char *filepath;
 
 	if (!command)
 		return (NULL);
@@ -41,5 +40,28 @@ char *_which(char *command)
 		dir = strtok(NULL, ":");
 	}
 	free(backup_path);
+	return (NULL);
+}
+/**
+* reference_builtin - Look for a function defining the builtin command given
+*
+*@cmd: The given command
+*
+*Return: On success, a pointer to the function else NULL
+*/
+int (*reference_builtin(char *cmd))(char **argv, char *user_input)
+{
+	builtint_t table[] = {
+		{"exit", exit_shell},
+		{NULL, NULL}
+	};
+	int i = 0;
+
+	while (table[i].name)
+	{
+		if (strcmp(cmd, table[i].name) == 0)
+			return (table[i].f);
+		i++;
+	}
 	return (NULL);
 }

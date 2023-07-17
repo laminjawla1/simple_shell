@@ -5,22 +5,34 @@
 *
 *@argv: A command to be executed
 *@p_name: The name of the shell program
-*@n_cmds_executed: Number of commands executed
+*@user_input: User input
+*@count: Number of commands executed
 */
-void execute(char **argv, char *p_name, size_t n_cmds_executed)
+void execute(char **argv, char *p_name, char *user_input, size_t count)
 {
 	char *cmd = NULL, error_msg[1024];
 	pid_t pid;
+	int (*f)(char **, char *);
 
 	if (!*argv)
 		return;
 	cmd = _which(*argv);
 	if (!cmd)
 	{
-		snprintf(error_msg, 1024, "%s: %ld: %s: not found\n",
-			p_name, n_cmds_executed, *argv);
-		print_error_msg(STDERR_FILENO, error_msg);
-		return;
+		f = reference_builtin(*argv);
+		printf("*argv: %s\n", *argv);
+		if (f)
+		{
+			f(argv, user_input);
+			return;
+		}
+		else
+		{
+			snprintf(error_msg, 1024, "%s: %ld: %s: not found\n",
+				p_name, count, *argv);
+			print_error_msg(STDERR_FILENO, error_msg);
+			return;
+		}
 	}
 	pid = fork();
 	if (pid == -1)
