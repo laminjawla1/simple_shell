@@ -13,6 +13,9 @@
 #include <sys/stat.h>
 #include <signal.h>
 
+/*The global environmentt variable*/
+extern char **environ;
+
 /**
 * struct builtin_t - A template for the builtin commands
 *
@@ -38,4 +41,5 @@ void print_error_msg(int fd, char *error_msg);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 int (*reference_builtin(char *cmd))(char **argv, char *user_input);
 int exit_shell(char **argv, char *user_input);
+int print_env(char **argv, char *user_input);
 #endif

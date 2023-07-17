@@ -17,13 +17,13 @@ void execute(char **argv, char *p_name, char *user_input, size_t count)
 	if (!*argv)
 		return;
 	cmd = _which(*argv);
-	if (!cmd)
+	if (!cmd || strcmp(*argv, "env") == 0)
 	{
 		f = reference_builtin(*argv);
-		printf("*argv: %s\n", *argv);
 		if (f)
 		{
 			f(argv, user_input);
+			free(cmd);
 			return;
 		}
 		else

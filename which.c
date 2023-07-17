@@ -53,6 +53,7 @@ int (*reference_builtin(char *cmd))(char **argv, char *user_input)
 {
 	builtint_t table[] = {
 		{"exit", exit_shell},
+		{"env", print_env},
 		{NULL, NULL}
 	};
 	int i = 0;
