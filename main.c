@@ -11,8 +11,7 @@
 int main(int __attribute__((unused)) argc, char **argv)
 {
 	char *prompt = "$ ", *sep = " \n", *user_input = NULL, **_argv;
-	size_t n = 0, number_of_commands_executed = 1;
-	int val_from_getline = 0;
+	size_t number_of_commands_executed = 1;
 
 	signal(SIGINT, signal_handler);
 	if (argc == 1)
@@ -21,15 +20,15 @@ int main(int __attribute__((unused)) argc, char **argv)
 		{
 			if (isatty(STDIN_FILENO))
 				display_prompt(prompt);
-			val_from_getline = _getline(&user_input, &n, stdin);
-			if (val_from_getline != -1)
+			user_input = _getline(STDIN_FILENO);
+			if (user_input)
 			{
 				_argv = tokenize(user_input, sep);
 				execute(_argv, *argv, user_input, number_of_commands_executed);
+				free(user_input);
 			}
 			else
 			{
-				free(user_input);
 				if (isatty(STDIN_FILENO))
 					putchar('\n');
 				_exit(0);

@@ -3,16 +3,34 @@
 /**
 * _getline - Gets a line of text from the given stream
 *
-*@lineptr: A pointer to point to the read string
-*@n: A pointer to the size of the string
-*@stream: A stream from which to read from
+*@fd: A stream from which to read from
 *
-*Return: -1 on error else: the number of characters read
+*Return: NULL on error else: A pointer to lineptr
 */
-ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
+char *_getline(int fd)
 {
-	int ret_val;
+	char *lineptr = NULL;
+	int i = 0, c = 0, r = 0;
+	size_t size = BUFF_SIZE;
 
-	ret_val = getline(lineptr, n, stream);
-	return (ret_val);
+	lineptr = malloc(sizeof(char) * size);
+	while (c != EOF && c != '\n')
+	{
+		fflush(stdin);
+		r = read(fd, &c, 1);
+		if (!r)
+		{
+			free(lineptr);
+			return (NULL);
+		}
+		lineptr[i] = c;
+		if (i >= BUFF_SIZE)
+		{
+			size++;
+			lineptr = realloc(lineptr, size);
+		}
+		i++;
+	}
+	lineptr[i] = '\0';
+	return (lineptr);
 }

@@ -13,6 +13,8 @@
 #include <sys/stat.h>
 #include <signal.h>
 
+#define BUFF_SIZE 50
+
 /*The global environmentt variable*/
 extern char **environ;
 
@@ -38,7 +40,7 @@ void execute(char **, char *, char *, size_t);
 char *_which(char *command);
 void signal_handler(int sig);
 void print_error_msg(int fd, char *error_msg);
-ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
+char *_getline(int fd);
 int (*reference_builtin(char *cmd))(char **argv, char *user_input);
 int exit_shell(char **argv, char *user_input);
 int print_env(char **argv, char *user_input);
