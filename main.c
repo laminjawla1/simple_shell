@@ -10,42 +10,47 @@
 */
 int main(int __attribute__((unused)) argc, char **argv)
 {
-	char *prompt = "$ ", *sep = " \n", *user_input = NULL, **_argv;
-	size_t n = 0;
-	int val_from_getline, number_of_commands_executed = 1;
+	char *prompt = "$ ", *sep = " \n", *user_input = NULL, error_msg[1024];
+	char *cmd = NULL, **_argv;
+	size_t n = 0, number_of_commands_executed = 1;
+	int val_from_getline = 0;
 
-	/*signal(SIGINT, signal_handler);*/
+	signal(SIGINT, signal_handler);
 	while (true)
 	{
-		/*Display an input prompt to the user fd is pointing to the terminal*/
 		if (isatty(STDIN_FILENO))
 			display_prompt(prompt);
-
-		/*Get a text line from the user*/
 		val_from_getline = getline(&user_input, &n, stdin);
 		if (val_from_getline != -1)
 		{
-			/*Tokenize the command*/
 			_argv = tokenize(user_input, sep);
-			/*Check if the user wants to exit*/
-			if (*_argv && strcmp(_argv[0], "exit") == 0)
+			if ((*_argv != NULL) && (strcmp(*_argv, "exit") == 0))
 			{
 				free(user_input);
 				free_argv(_argv);
 				_exit(0);
 			}
-			/*Execute the command*/
-			execute(_argv, argv[0], number_of_commands_executed);
-			/*Clean up the memory*/
-			free_argv(_argv);
+			cmd = _which(_argv[0]);
+			if (!cmd)
+			{
+				snprintf(error_msg, 1024, "%s: %ld: %s: not found\n",
+					*argv, number_of_commands_executed, *_argv);
+				print_error_msg(STDERR_FILENO, error_msg);
+			}
+			else
+			{
+				execute(_argv, cmd);
+				free(cmd);
+			}
 		}
 		else
 		{
-			putchar('\n');
 			free(user_input);
+			putchar('\n');
 			_exit(0);
 		}
 		number_of_commands_executed++;
+		free_argv(_argv);
 	}
 	return (0);
 }

@@ -9,35 +9,37 @@
 */
 char *_which(char *command)
 {
-	char *filepath = NULL, *path = NULL, *dir = NULL, *backup_path;
-	size_t len;
+	char *path, *dir, *backup_path;
+	size_t cmd_len, len;
 	struct stat buf;
+	char *filepath;
 
 	if (!command)
 		return (NULL);
+	if (stat(command, &buf) == 0)
+	{
+		len = strlen(command) + 1;
+		filepath = malloc(sizeof(char) * len);
+		snprintf(filepath, len, "%s", command);
+		return (filepath);
+	}
 	path = getenv("PATH");
-	if (!path)
-		return (NULL);
 	backup_path = strdup(path);
 	dir = strtok(backup_path, ":");
+	cmd_len = strlen(command);
 	while (dir)
 	{
-		len = strlen(dir) + strlen(command) + 2;
+		len = strlen(dir) + cmd_len + 2;
 		filepath = malloc(sizeof(char) * len);
-		if (!filepath)
-		{
-			free(backup_path);
-			return (NULL);
-		}
 		snprintf(filepath, len, "%s/%s", dir, command);
-		if ((stat(filepath, &buf)) == 0)
+		if (stat(filepath, &buf) == 0)
 		{
 			free(backup_path);
 			return (filepath);
 		}
-		dir = strtok(NULL, ":");
 		free(filepath);
+		dir = strtok(NULL, ":");
 	}
 	free(backup_path);
-	return (command);
+	return (NULL);
 }
