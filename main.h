@@ -4,6 +4,7 @@
 /*Header Files*/
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <sys/wait.h>
@@ -39,9 +40,16 @@ void free_argv(char **argv);
 void execute(char **, char *, char *, size_t);
 char *_which(char *command);
 void signal_handler(int sig);
-void print_error_msg(int fd, char *error_msg);
+void print_error_msg(char *s_name, char *p_name, char *ec, size_t count);
 char *_getline(int fd);
+int execute_from_file(char **argv);
+
+/*Built in function prototypes*/
 int (*reference_builtin(char *cmd))(char **argv, char *user_input);
 int exit_shell(char **argv, char *user_input);
 int print_env(char **argv, char *user_input);
+
+/*Miscellaneous functions*/
+bool _isdigit(char *s);
+char *handle_comments(char *command);
 #endif

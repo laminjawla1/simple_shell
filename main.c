@@ -23,6 +23,7 @@ int main(int __attribute__((unused)) argc, char **argv)
 			user_input = _getline(STDIN_FILENO);
 			if (user_input)
 			{
+				user_input = handle_comments(user_input);
 				_argv = tokenize(user_input, sep);
 				execute(_argv, *argv, user_input, number_of_commands_executed);
 				free(user_input);
@@ -37,6 +38,8 @@ int main(int __attribute__((unused)) argc, char **argv)
 			free_argv(_argv);
 		}
 	}
+	else
+		execute_from_file(argv);
 	return (0);
 }
 /**

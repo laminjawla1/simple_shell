@@ -3,12 +3,22 @@
 /**
 * print_error_msg - Prints an error message to fd
 *
-*@fd: File descriptor
-*@error_msg: Error message to be printed
+*@s_name: Name of the shell program
+*@p_name: Name of the program to be run
+*@ec: Exit code
+*@count: Number of commands executed
 *
 *Return: None
 */
-void print_error_msg(int fd, char *error_msg)
+void print_error_msg(char *s_name, char *p_name, char *ec, size_t count)
 {
-	write(fd, error_msg, strlen(error_msg));
+	char error_msg[1024];
+
+	if (ec)
+		snprintf(error_msg, 1024, "%s: %ld: %s: Illegal number: %s\n",
+			s_name, count, p_name, ec);
+	else
+		snprintf(error_msg, 1024, "%s: %ld: %s: not found\n",
+			s_name, count, p_name);
+	write(STDERR_FILENO, error_msg, strlen(error_msg));
 }
