@@ -37,7 +37,7 @@ void execute(char **argv, char *s_name, char *user_input, size_t count)
 	if (pid == -1)
 		return;
 	else if (pid == 0)
-		execve(cmd, argv, NULL);
+		execve(cmd, argv, environ);
 	else
 	{
 		wait(NULL);
@@ -74,5 +74,27 @@ int execute_from_file(char **argv)
 	free(buffer);
 	fclose(fp);
 	return (0);
+}
+/**
+* execute_semicolon_sep - Execute commands separated by semicolons
+*
+*@user_input: The commands entered by the user
+*@s_name: The name of the shell program
+*@n: Number of commands executed
+*
+*Return: Void
+*/
+void execute_semicolon_sep(char *user_input, char *s_name, int n)
+{
+	char **commands, **argv = NULL;
+	int i;
 
+	commands = tokenize(user_input, ";\n");
+	for (i = 0; commands[i]; i++)
+	{
+		argv = tokenize(commands[i], " \n");
+		execute(argv, s_name, NULL, n);
+		free_argv(argv);
+	}
+	free_argv(commands);
 }

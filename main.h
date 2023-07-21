@@ -43,6 +43,7 @@ void signal_handler(int sig);
 void print_error_msg(char *s_name, char *p_name, char *ec, size_t count);
 char *_getline(int fd);
 int execute_from_file(char **argv);
+void execute_semicolon_sep(char *user_input, char *s_name, int n);
 
 /*Built in function prototypes*/
 int (*reference_builtin(char *cmd))(char **argv, char *user_input);

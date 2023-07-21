@@ -11,11 +11,10 @@ char *_which(char *command)
 {
 	char *path = NULL, *dir = NULL, *backup_path = NULL, *filepath = NULL;
 	size_t cmd_len, len;
-	struct stat buf;
 
 	if (!command)
 		return (NULL);
-	if (stat(command, &buf) == 0)
+	if (access(command, R_OK) == 0)
 	{
 		len = strlen(command) + 1;
 		filepath = malloc(sizeof(char) * len);
@@ -31,7 +30,7 @@ char *_which(char *command)
 		len = strlen(dir) + cmd_len + 2;
 		filepath = malloc(sizeof(char) * len);
 		snprintf(filepath, len, "%s/%s", dir, command);
-		if (stat(filepath, &buf) == 0)
+		if (access(filepath, R_OK) == 0)
 		{
 			free(backup_path);
 			return (filepath);

@@ -24,8 +24,14 @@ int main(int __attribute__((unused)) argc, char **argv)
 			if (user_input)
 			{
 				user_input = handle_comments(user_input);
-				_argv = tokenize(user_input, sep);
-				execute(_argv, *argv, user_input, number_of_commands_executed);
+				if (!strchr(user_input, ';'))
+				{
+					_argv = tokenize(user_input, sep);
+					execute(_argv, *argv, user_input, number_of_commands_executed);
+					free_argv(_argv);
+				}
+				else
+					execute_semicolon_sep(user_input, *argv, number_of_commands_executed);
 				free(user_input);
 			}
 			else
@@ -35,7 +41,6 @@ int main(int __attribute__((unused)) argc, char **argv)
 				_exit(0);
 			}
 			number_of_commands_executed++;
-			free_argv(_argv);
 		}
 	}
 	else
