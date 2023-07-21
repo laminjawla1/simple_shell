@@ -93,7 +93,9 @@ void execute_semicolon_sep(char *user_input, char *s_name, int n)
 	for (i = 0; commands[i]; i++)
 	{
 		argv = tokenize(commands[i], " \n");
-		execute(argv, s_name, NULL, n);
+		if (strcmp(*argv, "exit") == 0)
+			free_argv(commands);
+		execute(argv, s_name, user_input, n);
 		free_argv(argv);
 	}
 	free_argv(commands);
