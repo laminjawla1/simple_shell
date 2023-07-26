@@ -54,30 +54,34 @@ void execute(char **argv, char *s_name, char *user_input, size_t count)
 int execute_from_file(char **argv)
 {
 	char *buffer;
-	ssize_t fp;
+	FILE *fp;
 	char **_argv;
 	int n = 1;
 	size_t buff_size = BUFF_SIZE;
 
-	fp = open(argv[1], O_RDONLY);
-	if (fp == -1)
+	fp = fopen(argv[1], "r");
+	if (!fp)
 		return (-1);
-	buffer = malloc(sizeof(char) * 1024);
+	buffer = malloc(sizeof(char) * buff_size);
 	if (!buffer)
 	{
-		close(fp);
+		fclose(fp);
 		return (-1);
 	}
-	while (read(fp, buffer, buff_size) > 0)
+	while (fgets(buffer, buff_size, fp))
 	{
-		printf("Read: %s\n", buffer);
-		_argv = tokenize(buffer, " \n");
-		execute(_argv, *argv, NULL, n);
-		free_argv(_argv);
+		if (!_strchr(buffer, ';'))
+		{
+			_argv = tokenize(buffer, " \n");
+			execute(_argv, *argv, NULL, n);
+			free_argv(_argv);
+		}
+		else
+			execute_semicolon_sep(buffer, *argv, n);
 		n++;
 	}
 	free(buffer);
-	close(fp);
+	fclose(fp);
 	return (0);
 }
 /**

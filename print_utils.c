@@ -20,5 +20,5 @@ void print_error_msg(char *s_name, char *p_name, char *ec, size_t count)
 	else
 		snprintf(error_msg, 1024, "%s: %ld: %s: not found\n",
 			s_name, count, p_name);
-	write(STDERR_FILENO, error_msg, strlen(error_msg));
+	write(STDERR_FILENO, error_msg, _strlen(error_msg));
 }

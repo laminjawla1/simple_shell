@@ -44,10 +44,7 @@ int main(int __attribute__((unused)) argc, char **argv)
 		}
 	}
 	else
-	{
-		printf("Here\n");
 		execute_from_file(argv);
-	}
 	return (0);
 }
 /**

@@ -3,3 +3,4 @@ ls
 ls -la
 pwd;ls
 echo "Hello World"
+ls -lanh
