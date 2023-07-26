@@ -53,4 +53,10 @@ int print_env(char **argv, char *user_input);
 /*Miscellaneous functions*/
 bool _isdigit(char *s);
 char *handle_comments(char *command);
+
+/*String utilities*/
+bool _strchr(char *s, char c);
+size_t _strlen(char *s);
+char *_strdup(char *s);
+void _strcpy(char *dest, char *src);
 #endif

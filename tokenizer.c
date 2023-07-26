@@ -13,17 +13,17 @@ char **tokenize(char *line, char *sep)
 	char **argv, *token, *backup;
 	size_t number_of_tokens, i = 0, token_len;
 
-	backup = strdup(line);
+	backup = _strdup(line);
 	number_of_tokens = get_number_of_tokens(backup, sep);
 	free(backup);
 	argv = (char **)malloc(sizeof(char *) * (number_of_tokens + 1));
-	backup = strdup(line);
+	backup = _strdup(line);
 	token = strtok(backup, sep);
 	while (token)
 	{
-		token_len = strlen(token);
+		token_len = _strlen(token);
 		argv[i] = (char *)malloc(sizeof(char) * (token_len + 1));
-		strcpy(argv[i], token);
+		_strcpy(argv[i], token);
 		token = strtok(NULL, sep);
 		i++;
 	}

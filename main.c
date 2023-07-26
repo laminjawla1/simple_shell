@@ -24,7 +24,7 @@ int main(int __attribute__((unused)) argc, char **argv)
 			if (user_input)
 			{
 				user_input = handle_comments(user_input);
-				if (!strchr(user_input, ';'))
+				if (!_strchr(user_input, ';'))
 				{
 					_argv = tokenize(user_input, sep);
 					execute(_argv, *argv, user_input, number_of_commands_executed);
