@@ -12,7 +12,7 @@ bool _isdigit(char *s)
 	int i;
 
 	for (i = 0; s[i]; i++)
-		if (!isdigit(s[i]))
+		if (!(s[i] >= '0' && s[i] <= '9'))
 			return (false);
 	return (true);
 }
