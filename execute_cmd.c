@@ -18,7 +18,7 @@ void execute(char **argv, char *s_name, char *user_input, size_t count)
 	if (!*argv)
 		return;
 	cmd = _which(*argv);
-	if (!cmd || strcmp(*argv, "env") == 0)
+	if (!cmd || _strcmp(*argv, "env") == 0)
 	{
 		f = reference_builtin(*argv);
 		if (f)
@@ -93,7 +93,7 @@ void execute_semicolon_sep(char *user_input, char *s_name, int n)
 	for (i = 0; commands[i]; i++)
 	{
 		argv = tokenize(commands[i], " \n");
-		if (strcmp(*argv, "exit") == 0)
+		if (_strcmp(*argv, "exit") == 0)
 			free_argv(commands);
 		execute(argv, s_name, user_input, n);
 		free_argv(argv);
