@@ -14,7 +14,7 @@
 #include <sys/stat.h>
 #include <signal.h>
 
-#define BUFF_SIZE 50
+#define BUFF_SIZE 80
 
 /*The global environmentt variable*/
 extern char **environ;

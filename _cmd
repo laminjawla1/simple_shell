@@ -1,0 +1,5 @@
+ls
+/bin/ls
+ls -la
+pwd;ls
+echo "Hello World"
