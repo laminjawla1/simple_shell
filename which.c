@@ -60,7 +60,7 @@ int (*reference_builtin(char *cmd))(char **argv, char *user_input)
 
 	while (table[i].name)
 	{
-		if (strcmp(cmd, table[i].name) == 0)
+		if (_strcmp(cmd, table[i].name) == 0)
 			return (table[i].f);
 		i++;
 	}

@@ -37,7 +37,7 @@ int main(int __attribute__((unused)) argc, char **argv)
 			else
 			{
 				if (isatty(STDIN_FILENO))
-					putchar('\n');
+					write(STDIN_FILENO, "\n", 1);
 				_exit(0);
 			}
 			number_of_commands_executed++;

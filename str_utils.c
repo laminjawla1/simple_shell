@@ -8,17 +8,17 @@
 *
 *Return: true or false
 */
-bool _strchr(char *s, char c)
+int _strchr(char *s, char c)
 {
 	int i = 0;
 
 	while (s[i])
 	{
 		if (s[i] == c)
-			return (true);
+			return (1);
 		i++;
 	}
-	return (false);
+	return (0);
 }
 
 /**

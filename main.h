@@ -55,9 +55,10 @@ bool _isdigit(char *s);
 char *handle_comments(char *command);
 
 /*String utilities*/
-bool _strchr(char *s, char c);
+int _strchr(char *s, char c);
 size_t _strlen(char *s);
 char *_strdup(char *s);
 void _strcpy(char *dest, char *src);
 char *_strcat(char *dest, char *src);
+int _strcmp(char *s1, char *s2);
 #endif
