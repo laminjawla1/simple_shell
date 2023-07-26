@@ -16,18 +16,18 @@ char *_which(char *command)
 		return (NULL);
 	if (access(command, R_OK) == 0)
 	{
-		len = strlen(command) + 1;
+		len = _strlen(command) + 1;
 		filepath = malloc(sizeof(char) * len);
-		snprintf(filepath, len, "%s", command);
+		_strcpy(filepath, command);
 		return (filepath);
 	}
 	path = getenv("PATH");
 	backup_path = strdup(path);
 	dir = strtok(backup_path, ":");
-	cmd_len = strlen(command);
+	cmd_len = _strlen(command);
 	while (dir)
 	{
-		len = strlen(dir) + cmd_len + 2;
+		len = _strlen(dir) + cmd_len + 2;
 		filepath = malloc(sizeof(char) * len);
 		snprintf(filepath, len, "%s/%s", dir, command);
 		if (access(filepath, R_OK) == 0)
