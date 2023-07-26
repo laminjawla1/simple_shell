@@ -75,3 +75,21 @@ void _strcpy(char *dest, char *src)
 		dest[i] = src[i];
 	dest[i] = '\0';
 }
+/**
+* _strcat - Concatenates two strings
+*
+*@dest: Destination string
+*@src: Source string
+*
+*Return: Concatenated string
+*/
+char *_strcat(char *dest, char *src)
+{
+	size_t len = _strlen(dest);
+	size_t i;
+
+	for (i = 0 ; src[i] != '\0'; i++)
+		dest[len + i] = src[i];
+	dest[len + i] = '\0';
+	return dest;
+}

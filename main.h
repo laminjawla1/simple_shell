@@ -59,4 +59,5 @@ bool _strchr(char *s, char c);
 size_t _strlen(char *s);
 char *_strdup(char *s);
 void _strcpy(char *dest, char *src);
+char *_strcat(char *dest, char *src);
 #endif

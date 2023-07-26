@@ -22,14 +22,15 @@ char *_which(char *command)
 		return (filepath);
 	}
 	path = getenv("PATH");
-	backup_path = strdup(path);
+	backup_path = _strdup(path);
 	dir = strtok(backup_path, ":");
 	cmd_len = _strlen(command);
 	while (dir)
 	{
-		len = _strlen(dir) + cmd_len + 2;
-		filepath = malloc(sizeof(char) * len);
-		snprintf(filepath, len, "%s/%s", dir, command);
+		filepath = malloc(sizeof(char) * (_strlen(dir) + cmd_len + 2));
+		_strcpy(filepath, dir);
+		filepath = _strcat(filepath, "/");
+		filepath = _strcat(filepath, command);
 		if (access(filepath, R_OK) == 0)
 		{
 			free(backup_path);
