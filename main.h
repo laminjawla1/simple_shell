@@ -41,7 +41,7 @@ void execute(char **, char *, char *, size_t);
 char *_which(char *command);
 void signal_handler(int sig);
 void print_error_msg(char *s_name, char *p_name, char *ec, size_t count);
-char *_getline(int fd);
+char *_getline(void);
 int execute_from_file(char **argv);
 void execute_semicolon_sep(char *user_input, char *s_name, int n);
 

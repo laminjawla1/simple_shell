@@ -20,7 +20,7 @@ int main(int __attribute__((unused)) argc, char **argv)
 		{
 			if (isatty(STDIN_FILENO))
 				display_prompt(prompt);
-			user_input = _getline(STDIN_FILENO);
+			user_input = _getline();
 			if (user_input)
 			{
 				user_input = handle_comments(user_input);
